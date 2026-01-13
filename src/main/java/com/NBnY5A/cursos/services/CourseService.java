@@ -1,11 +1,13 @@
 package com.NBnY5A.cursos.services;
 
+import com.NBnY5A.cursos.controllers.UpdateCourseRequestDTO;
 import com.NBnY5A.cursos.dtos.CourseCreatedResponseDTO;
 import com.NBnY5A.cursos.dtos.CourseListResponseDTO;
 import com.NBnY5A.cursos.dtos.CreateCourseRequestDTO;
 import com.NBnY5A.cursos.entities.Course;
 import com.NBnY5A.cursos.repositories.CourseRepository;
 import com.NBnY5A.cursos.repositories.TeacherRepository;
+import jakarta.transaction.Transactional;
 import org.jspecify.annotations.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -76,6 +78,28 @@ public class CourseService {
         throw new RuntimeException("Erro ao tentar buscar cursos!");
     }
 
+    @Transactional
+    public void updateCourseById(String courseId, UpdateCourseRequestDTO dto) {
+        Course course = courseRepository.findById(courseId).orElseThrow(() -> new RuntimeException("Não foi possível achar o curso pelo id informado!"));
+
+        if (dto.name() != null) {
+            course.setName(dto.name());
+        }
+
+        if (dto.category() != null) {
+            course.setCategory(dto.category());
+        }
+
+        if (dto.teacherId() != null) {
+            var teacher = teacherRepository.findById(dto.teacherId());
+
+            teacher.ifPresent(course::setTeacher);
+        }
+
+        courseRepository.save(course);
+    }
+
+
     private static @NonNull List<CourseListResponseDTO> getCourseListResponseDTOS(Optional<List<Course>> listOfCourses) {
         List<CourseListResponseDTO> responseList = new ArrayList<>();
         for (Course course : listOfCourses.get()) {
@@ -89,5 +113,9 @@ public class CourseService {
             responseList.add(mappedCourse);
         }
         return responseList;
+    }
+
+    private boolean verifyIfDataExists(String courseId) {
+        return courseRepository.findById(courseId).isPresent();
     }
 }
