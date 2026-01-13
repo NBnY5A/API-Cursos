@@ -53,4 +53,11 @@ public class CourseController {
             return ResponseEntity.badRequest().body("Não foi possível deletar o curso informado!");
         }
     }
+
+    @PatchMapping(value = "/update/{course_id}/active")
+    public ResponseEntity<Void> updateCourseStatusById(@PathVariable(value = "course_id") String id) {
+        courseService.updateCourseById(id);
+
+        return ResponseEntity.ok().build();
+    }
 }

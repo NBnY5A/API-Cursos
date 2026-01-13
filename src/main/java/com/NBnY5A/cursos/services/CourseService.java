@@ -99,6 +99,17 @@ public class CourseService {
         courseRepository.save(course);
     }
 
+    public void updateCourseById(String courseId) {
+        Course course = courseRepository.findById(courseId).orElseThrow(() -> new RuntimeException(("Não foi possível achar o curso pelo id informado!")));
+
+        Boolean currentStatus = course.getActive();
+
+        course.setActive(!currentStatus);
+
+        courseRepository.save(course);
+    }
+
+
     public void deleteCourseById(String id) {
         courseRepository.findById(id).orElseThrow(() -> new RuntimeException("Não foi possível achar o curso pelo id informado!"));
 
