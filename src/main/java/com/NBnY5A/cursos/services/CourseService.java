@@ -99,6 +99,11 @@ public class CourseService {
         courseRepository.save(course);
     }
 
+    public void deleteCourseById(String id) {
+        courseRepository.findById(id).orElseThrow(() -> new RuntimeException("Não foi possível achar o curso pelo id informado!"));
+
+        courseRepository.deleteById(id);
+    }
 
     private static @NonNull List<CourseListResponseDTO> getCourseListResponseDTOS(Optional<List<Course>> listOfCourses) {
         List<CourseListResponseDTO> responseList = new ArrayList<>();
@@ -113,9 +118,5 @@ public class CourseService {
             responseList.add(mappedCourse);
         }
         return responseList;
-    }
-
-    private boolean verifyIfDataExists(String courseId) {
-        return courseRepository.findById(courseId).isPresent();
     }
 }

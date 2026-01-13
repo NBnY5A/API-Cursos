@@ -18,7 +18,7 @@ public class CourseController {
     @Autowired
     private CourseService courseService;
 
-    @PostMapping("/create")
+    @PostMapping(value = "/create")
     public ResponseEntity<CourseCreatedResponseDTO> create(@RequestBody CreateCourseRequestDTO dto) {
         var course = this.courseService.create(dto);
 
@@ -42,5 +42,15 @@ public class CourseController {
     public ResponseEntity<Void> updateCourseById(@PathVariable(value = "course_id") String courseId, @RequestBody UpdateCourseRequestDTO updateCourseRequestDTO) {
         courseService.updateCourseById(courseId, updateCourseRequestDTO);
         return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping(value = "/delete/{course_id}")
+    public ResponseEntity<String> delete(@PathVariable(value = "course_id") String id) {
+        try {
+            courseService.deleteCourseById(id);
+            return ResponseEntity.ok().body("Curso Deletado com sucesso!");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Não foi possível deletar o curso informado!");
+        }
     }
 }
