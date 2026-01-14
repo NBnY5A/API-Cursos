@@ -5,6 +5,7 @@ import com.NBnY5A.cursos.dtos.CourseListResponseDTO;
 import com.NBnY5A.cursos.dtos.CreateCourseRequestDTO;
 import com.NBnY5A.cursos.dtos.UpdateCourseRequestDTO;
 import com.NBnY5A.cursos.entities.Course;
+import com.NBnY5A.cursos.exceptions.CourseNotFoundException;
 import com.NBnY5A.cursos.mappers.CourseMapper;
 import com.NBnY5A.cursos.repositories.CourseRepository;
 import com.NBnY5A.cursos.repositories.TeacherRepository;
@@ -86,7 +87,7 @@ public class CourseService {
 
     @Transactional
     public void updateCourseById(String courseId, UpdateCourseRequestDTO dto) {
-        Course course = courseRepository.findById(courseId).orElseThrow(() -> new RuntimeException("Não foi possível achar o curso pelo id informado!"));
+        Course course = courseRepository.findById(courseId).orElseThrow(() -> new CourseNotFoundException("Não foi possível achar o curso pelo id informado!"));
 
         if (dto.name() != null) {
             course.setName(dto.name());
