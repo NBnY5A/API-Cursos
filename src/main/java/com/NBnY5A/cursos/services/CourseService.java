@@ -1,15 +1,15 @@
 package com.NBnY5A.cursos.services;
 
-import com.NBnY5A.cursos.controllers.UpdateCourseRequestDTO;
 import com.NBnY5A.cursos.dtos.CourseCreatedResponseDTO;
 import com.NBnY5A.cursos.dtos.CourseListResponseDTO;
 import com.NBnY5A.cursos.dtos.CreateCourseRequestDTO;
+import com.NBnY5A.cursos.dtos.UpdateCourseRequestDTO;
 import com.NBnY5A.cursos.entities.Course;
+import com.NBnY5A.cursos.mappers.CourseMapper;
 import com.NBnY5A.cursos.repositories.CourseRepository;
 import com.NBnY5A.cursos.repositories.TeacherRepository;
 import jakarta.transaction.Transactional;
 import org.jspecify.annotations.NonNull;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.MultiValueMap;
 
@@ -20,19 +20,25 @@ import java.util.Optional;
 @Service
 public class CourseService {
 
-    @Autowired
-    private CourseRepository courseRepository;
+    private final CourseRepository courseRepository;
 
-    @Autowired
-    private TeacherRepository teacherRepository;
+    private final TeacherRepository teacherRepository;
+
+    private final CourseMapper courseMapper;
+
+    public CourseService(CourseRepository courseRepository, TeacherRepository teacherRepository, CourseMapper courseMapper) {
+        this.courseRepository = courseRepository;
+        this.teacherRepository = teacherRepository;
+        this.courseMapper = courseMapper;
+    }
 
     public CourseCreatedResponseDTO create(CreateCourseRequestDTO dto) {
         var teacher = teacherRepository.findById(dto.id_professor());
 
         if (teacher.isPresent()) {
-            var course = dto.toEntity(teacher.get());
+            var result = courseMapper.dtoToEntity(dto);
 
-            var responseDTO = this.courseRepository.save(course);
+            var responseDTO = this.courseRepository.save(result);
 
             return new CourseCreatedResponseDTO("Curso criado com sucesso!", responseDTO.getId());
         }

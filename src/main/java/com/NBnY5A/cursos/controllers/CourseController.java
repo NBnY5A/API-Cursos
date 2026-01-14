@@ -3,8 +3,10 @@ package com.NBnY5A.cursos.controllers;
 import com.NBnY5A.cursos.dtos.CourseCreatedResponseDTO;
 import com.NBnY5A.cursos.dtos.CourseListResponseDTO;
 import com.NBnY5A.cursos.dtos.CreateCourseRequestDTO;
+import com.NBnY5A.cursos.dtos.UpdateCourseRequestDTO;
 import com.NBnY5A.cursos.services.CourseService;
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
@@ -15,17 +17,20 @@ import java.util.List;
 @RequestMapping("/course")
 public class CourseController {
 
-    @Autowired
-    private CourseService courseService;
+    private final CourseService courseService;
 
-    @PostMapping(value = "/create")
-    public ResponseEntity<CourseCreatedResponseDTO> create(@RequestBody CreateCourseRequestDTO dto) {
-        var course = this.courseService.create(dto);
-
-        return ResponseEntity.ok().body(course);
+    public CourseController(CourseService courseService) {
+        this.courseService = courseService;
     }
 
-    @GetMapping(value = "/")
+    @PostMapping
+    public ResponseEntity<CourseCreatedResponseDTO> create(@RequestBody @Valid CreateCourseRequestDTO dto) {
+        var course = this.courseService.create(dto);
+
+        return new ResponseEntity<>(course, HttpStatus.CREATED);
+    }
+
+    @GetMapping
     public ResponseEntity<List<CourseListResponseDTO>> listCourses() {
         var courses = this.courseService.fetchAllCourses();
 
@@ -38,13 +43,13 @@ public class CourseController {
         return ResponseEntity.ok().body(courses);
     }
 
-    @PutMapping(value = "/update/{course_id}")
+    @PutMapping(value = "/{course_id}")
     public ResponseEntity<Void> updateCourseById(@PathVariable(value = "course_id") String courseId, @RequestBody UpdateCourseRequestDTO updateCourseRequestDTO) {
         courseService.updateCourseById(courseId, updateCourseRequestDTO);
         return ResponseEntity.ok().build();
     }
 
-    @DeleteMapping(value = "/delete/{course_id}")
+    @DeleteMapping(value = "/{course_id}")
     public ResponseEntity<String> delete(@PathVariable(value = "course_id") String id) {
         try {
             courseService.deleteCourseById(id);
@@ -54,7 +59,7 @@ public class CourseController {
         }
     }
 
-    @PatchMapping(value = "/update/{course_id}/active")
+    @PatchMapping(value = "/{course_id}/active")
     public ResponseEntity<Void> updateCourseStatusById(@PathVariable(value = "course_id") String id) {
         courseService.updateCourseById(id);
 
