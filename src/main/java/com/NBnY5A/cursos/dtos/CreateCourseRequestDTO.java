@@ -10,12 +10,12 @@ public record CreateCourseRequestDTO(
         Long id_professor
 ) {
     public Course toEntity(Teacher teacher) {
-        return new Course(
-                this.name,
-                this.category,
-                this.isActive,
-                teacher
-        );
+        return Course.builder()
+                .name(this.name)
+                .category(this.category)
+                .active(this.isActive)
+                .teacher(teacher)
+                .build();
     }
 }
 

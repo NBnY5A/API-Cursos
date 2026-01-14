@@ -8,10 +8,10 @@ public record CreateTeacherRequestDTO(
         String email
 ) {
     public Teacher toEntity() {
-        return new Teacher(
-                this.firstName,
-                this.lastName,
-                this.email
-        );
+        return Teacher.builder()
+                .firstName(this.firstName)
+                .lastName(this.lastName)
+                .email(this.email)
+                .build();
     }
 }
