@@ -13,5 +13,5 @@ public interface CourseMapper {
     @Mapping(source = "category", target = "category")
     @Mapping(source = "isActive", target = "active")
     @Mapping(source = "id_professor", target = "teacher.id")
-    Course dtoToEntity(CreateCourseRequestDTO dto);
+    Course convertDtoToEntity(CreateCourseRequestDTO dto);
 }

@@ -37,7 +37,7 @@ public class CourseService {
         var teacher = teacherRepository.findById(dto.id_professor());
 
         if (teacher.isPresent()) {
-            var result = courseMapper.dtoToEntity(dto);
+            var result = courseMapper.convertDtoToEntity(dto);
 
             var responseDTO = this.courseRepository.save(result);
 
