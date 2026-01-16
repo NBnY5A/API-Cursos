@@ -6,6 +6,7 @@ import com.NBnY5A.cursos.dtos.CreateCourseRequestDTO;
 import com.NBnY5A.cursos.dtos.UpdateCourseRequestDTO;
 import com.NBnY5A.cursos.entities.Course;
 import com.NBnY5A.cursos.exceptions.CourseNotFoundException;
+import com.NBnY5A.cursos.exceptions.TeacherNotFoundException;
 import com.NBnY5A.cursos.mappers.CourseMapper;
 import com.NBnY5A.cursos.repositories.CourseRepository;
 import com.NBnY5A.cursos.repositories.TeacherRepository;
@@ -98,16 +99,16 @@ public class CourseService {
         }
 
         if (dto.teacherId() != null) {
-            var teacher = teacherRepository.findById(dto.teacherId());
+            var teacher = teacherRepository.findById(dto.teacherId()).orElseThrow(() -> new TeacherNotFoundException("Não foi possível achar o professor pelo id informado!"));
 
-            teacher.ifPresent(course::setTeacher);
+            course.setTeacher(teacher);
         }
 
         courseRepository.save(course);
     }
 
     public void updateCourseById(String courseId) {
-        Course course = courseRepository.findById(courseId).orElseThrow(() -> new RuntimeException(("Não foi possível achar o curso pelo id informado!")));
+        Course course = courseRepository.findById(courseId).orElseThrow(() -> new CourseNotFoundException(("Não foi possível achar o curso pelo id informado!")));
 
         Boolean currentStatus = course.getActive();
 
