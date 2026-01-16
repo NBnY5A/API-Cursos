@@ -37,13 +37,7 @@ public class TeacherService {
         List<Teacher> teachers = teacherRepository.findAll();
 
         return teachers.stream().map(
-                teacher -> new TeacherListResponseDTO(teacher.getFirstName(), teacher.getEmail(), transformCourseSetOnList(teacher.getCourse()))
-        ).toList();
-    }
-
-    private List<TeacherCourseInfoDTO> transformCourseSetOnList(Set<Course> courseSet) {
-        return courseSet.stream().map(
-                course -> new TeacherCourseInfoDTO(course.getName(), course.getCategory(), course.getActive())
+                teacherMapper::toListDto
         ).toList();
     }
 }
