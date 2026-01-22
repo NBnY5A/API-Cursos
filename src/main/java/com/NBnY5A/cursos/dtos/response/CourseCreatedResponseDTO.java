@@ -1,4 +1,4 @@
-package com.NBnY5A.cursos.dtos;
+package com.NBnY5A.cursos.dtos.response;
 
 public record CourseCreatedResponseDTO(
         String message,

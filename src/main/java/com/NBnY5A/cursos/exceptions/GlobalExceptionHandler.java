@@ -1,5 +1,6 @@
 package com.NBnY5A.cursos.exceptions;
 
+import org.apache.catalina.User;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
 import org.springframework.validation.FieldError;
@@ -39,6 +40,11 @@ public class GlobalExceptionHandler {
         problemDetail.setProperty("errors", listDetails);
 
         return problemDetail;
+    }
+
+    @ExceptionHandler(UserAlreadyExistsException.class)
+    public ProblemDetail handlerUserAlreadyExists(UserAlreadyExistsException exception) {
+        return ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, exception.getMessage());
     }
 
     private Map<String, String> getErrorsDetails(MethodArgumentNotValidException exception) {

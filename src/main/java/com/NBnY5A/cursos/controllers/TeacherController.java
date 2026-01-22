@@ -1,9 +1,9 @@
 package com.NBnY5A.cursos.controllers;
 
 
-import com.NBnY5A.cursos.dtos.CreateTeacherRequestDTO;
-import com.NBnY5A.cursos.dtos.TeacherCreatedResponseDTO;
-import com.NBnY5A.cursos.dtos.TeacherListResponseDTO;
+import com.NBnY5A.cursos.dtos.request.CreateTeacherRequestDTO;
+import com.NBnY5A.cursos.dtos.response.TeacherCreatedResponseDTO;
+import com.NBnY5A.cursos.dtos.response.TeacherListResponseDTO;
 import com.NBnY5A.cursos.services.TeacherService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;

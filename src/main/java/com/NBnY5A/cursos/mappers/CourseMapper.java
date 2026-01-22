@@ -1,6 +1,6 @@
 package com.NBnY5A.cursos.mappers;
 
-import com.NBnY5A.cursos.dtos.CreateCourseRequestDTO;
+import com.NBnY5A.cursos.dtos.request.CreateCourseRequestDTO;
 import com.NBnY5A.cursos.entities.Course;
 import org.mapstruct.InjectionStrategy;
 import org.mapstruct.Mapper;
