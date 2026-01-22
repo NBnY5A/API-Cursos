@@ -1,8 +1,8 @@
 package com.NBnY5A.cursos.services;
 
-import com.NBnY5A.cursos.dtos.CreateTeacherRequestDTO;
-import com.NBnY5A.cursos.dtos.TeacherCreatedResponseDTO;
-import com.NBnY5A.cursos.dtos.TeacherListResponseDTO;
+import com.NBnY5A.cursos.dtos.request.CreateTeacherRequestDTO;
+import com.NBnY5A.cursos.dtos.response.TeacherCreatedResponseDTO;
+import com.NBnY5A.cursos.dtos.response.TeacherListResponseDTO;
 import com.NBnY5A.cursos.entities.Teacher;
 import com.NBnY5A.cursos.mappers.TeacherMapper;
 import com.NBnY5A.cursos.repositories.TeacherRepository;
