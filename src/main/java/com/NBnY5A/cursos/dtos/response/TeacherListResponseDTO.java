@@ -1,4 +1,6 @@
-package com.NBnY5A.cursos.dtos;
+package com.NBnY5A.cursos.dtos.response;
+
+import com.NBnY5A.cursos.dtos.TeacherCourseInfoDTO;
 
 import java.util.List;
 

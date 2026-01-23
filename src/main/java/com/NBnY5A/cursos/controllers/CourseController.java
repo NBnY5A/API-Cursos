@@ -1,9 +1,9 @@
 package com.NBnY5A.cursos.controllers;
 
-import com.NBnY5A.cursos.dtos.CourseCreatedResponseDTO;
-import com.NBnY5A.cursos.dtos.CourseListResponseDTO;
-import com.NBnY5A.cursos.dtos.CreateCourseRequestDTO;
-import com.NBnY5A.cursos.dtos.UpdateCourseRequestDTO;
+import com.NBnY5A.cursos.dtos.response.CourseCreatedResponseDTO;
+import com.NBnY5A.cursos.dtos.response.CourseListResponseDTO;
+import com.NBnY5A.cursos.dtos.request.CreateCourseRequestDTO;
+import com.NBnY5A.cursos.dtos.request.UpdateCourseRequestDTO;
 import com.NBnY5A.cursos.services.CourseService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;

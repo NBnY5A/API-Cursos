@@ -6,6 +6,8 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -31,6 +33,9 @@ public class Course {
     @ManyToOne(targetEntity = Teacher.class, optional = false)
     @JoinColumn(name = "teacher_id", referencedColumnName = "id")
     private Teacher teacher;
+
+    @OneToMany(mappedBy = "course") // Refers to the attribute name on StudentCourse Class
+    private Set<StudentCourse> students;
 
     @CreationTimestamp
     @Column(name = "created_at")

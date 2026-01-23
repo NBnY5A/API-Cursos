@@ -1,4 +1,4 @@
-package com.NBnY5A.cursos.dtos;
+package com.NBnY5A.cursos.dtos.request;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

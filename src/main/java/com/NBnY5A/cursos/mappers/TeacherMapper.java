@@ -1,8 +1,8 @@
 package com.NBnY5A.cursos.mappers;
 
-import com.NBnY5A.cursos.dtos.CreateTeacherRequestDTO;
+import com.NBnY5A.cursos.dtos.request.CreateTeacherRequestDTO;
 import com.NBnY5A.cursos.dtos.TeacherCourseInfoDTO;
-import com.NBnY5A.cursos.dtos.TeacherListResponseDTO;
+import com.NBnY5A.cursos.dtos.response.TeacherListResponseDTO;
 import com.NBnY5A.cursos.entities.Course;
 import com.NBnY5A.cursos.entities.Teacher;
 import org.mapstruct.*;
