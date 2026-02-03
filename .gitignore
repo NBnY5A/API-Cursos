@@ -35,3 +35,5 @@ build/
 ### Application ###
 *.env
 application.properties
+app.key
+app.pub

@@ -45,7 +45,7 @@ public class CourseService {
             return new CourseCreatedResponseDTO("Curso criado com sucesso!", responseDTO.getId());
         }
 
-        throw new RuntimeException("Erro ao tentar encontrar professor!");
+        throw new TeacherNotFoundException("Erro ao tentar encontrar professor!");
     }
 
     public List<CourseListResponseDTO> fetchAllCourses() {
@@ -79,11 +79,9 @@ public class CourseService {
             if (listOfCourses.isPresent()) {
                 return getCourseListResponseDTOS(listOfCourses);
             }
-
-
         }
 
-        throw new RuntimeException("Erro ao tentar buscar cursos!");
+        throw new CourseNotFoundException("Erro ao tentar buscar cursos!");
     }
 
     @Transactional
@@ -119,7 +117,7 @@ public class CourseService {
 
 
     public void deleteCourseById(String id) {
-        courseRepository.findById(id).orElseThrow(() -> new RuntimeException("Não foi possível achar o curso pelo id informado!"));
+        courseRepository.findById(id).orElseThrow(() -> new CourseNotFoundException("Não foi possível achar o curso pelo id informado!"));
 
         courseRepository.deleteById(id);
     }
